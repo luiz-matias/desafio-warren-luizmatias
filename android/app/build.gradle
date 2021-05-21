@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "br.com.warren.challange"
+        applicationId "br.com.warren.challenge"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
