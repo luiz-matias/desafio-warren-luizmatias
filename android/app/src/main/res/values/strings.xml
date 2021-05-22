@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Warren Challenge</string>
     <string name="app_slogan">Investir\n<b>#descomplicou</b></string>
+    <string name="background_description">Mulher sorrindo</string>
+    <string name="do_your_login">Realize seu login</string>
+    <string name="email">E-mail</string>
+    <string name="email_hint">seumelhor@email.com</string>
+    <string name="password">Senha</string>
+    <string name="login">Login</string>
 </resources>
