@@ -7,6 +7,7 @@ import br.com.warren.challenge.data.local.SessionManager
 import br.com.warren.challenge.data.local.SessionManagerImpl
 import br.com.warren.challenge.data.webservice.AuthInterceptor
 import br.com.warren.challenge.data.webservice.WebService
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -27,7 +28,7 @@ val appModule = module {
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
 
     //ViewModels
-    viewModel { LoginViewModel(get()) }
+    viewModel { LoginViewModel(Dispatchers.IO, get()) }
 
 }
 
