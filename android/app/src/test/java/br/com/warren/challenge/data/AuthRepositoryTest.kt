@@ -1,5 +1,6 @@
 package br.com.warren.challenge.data
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.warren.challenge.data.entities.Auth
 import br.com.warren.challenge.data.entities.AuthParameters
 import br.com.warren.challenge.data.local.SessionManager
@@ -15,6 +16,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -22,6 +24,9 @@ import retrofit2.Response
 
 @RunWith(JUnit4::class)
 class AuthRepositoryTest {
+
+    @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
 
     @MockK
     lateinit var webService: WebService
