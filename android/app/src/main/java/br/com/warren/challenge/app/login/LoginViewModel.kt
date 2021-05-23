@@ -1,17 +1,19 @@
 package br.com.warren.challenge.app.login
 
 import android.util.Patterns
+import androidx.core.util.PatternsCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import br.com.warren.challenge.app.exceptions.InvalidEmailException
 import br.com.warren.challenge.app.exceptions.InvalidPasswordException
 import br.com.warren.challenge.app.util.Resource
 import br.com.warren.challenge.data.AuthRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
+class LoginViewModel(private val coroutineDispatcher: CoroutineDispatcher, private val authRepository: AuthRepository) : ViewModel() {
 
-    fun login(email: String, password: String) = liveData(Dispatchers.IO) {
+    fun login(email: String, password: String) = liveData(coroutineDispatcher) {
         emit(Resource.Loading)
 
         if (!isEmailValid(email)) {
@@ -29,13 +31,12 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
         try {
             emit(Resource.Success(authRepository.login(email, password)))
         } catch (e: Exception) {
-            e.printStackTrace()
             emit(Resource.Error(e))
         }
     }
 
     private fun isEmailValid(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        return PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     private fun isPasswordValid(password: String): Boolean {
