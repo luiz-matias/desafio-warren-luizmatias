@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Warren Challenge</string>
     <string name="app_slogan">Investir\n<b>#descomplicou</b></string>
+    <string name="background_description">Mulher sorrindo</string>
+    <string name="do_your_login">Realize seu login</string>
+    <string name="email">E-mail</string>
+    <string name="email_hint">seumelhor@email.com</string>
+    <string name="password">Senha</string>
+    <string name="login">Login</string>
+    <string name="invalid_email">E-mail inválido</string>
+    <string name="invalid_password">Senhas precisam ter 6 caracteres ou mais</string>
+    <string name="unknown_error">Houve um problema. Tente novamente mais tarde.</string>
+    <string name="invalid_login">Login não encontrado!</string>
 </resources>
