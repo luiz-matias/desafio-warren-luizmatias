@@ -1,6 +1,5 @@
 package br.com.warren.challenge.app.login
 
-import android.util.Patterns
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -9,9 +8,11 @@ import br.com.warren.challenge.app.exceptions.InvalidPasswordException
 import br.com.warren.challenge.app.util.Resource
 import br.com.warren.challenge.data.AuthRepository
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 
-class LoginViewModel(private val coroutineDispatcher: CoroutineDispatcher, private val authRepository: AuthRepository) : ViewModel() {
+class LoginViewModel(
+    private val coroutineDispatcher: CoroutineDispatcher,
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
     fun login(email: String, password: String) = liveData(coroutineDispatcher) {
         emit(Resource.Loading)

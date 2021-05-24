@@ -1,12 +1,13 @@
 package br.com.warren.challenge.app.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.warren.challenge.R
 import br.com.warren.challenge.app.exceptions.InvalidEmailException
 import br.com.warren.challenge.app.exceptions.InvalidPasswordException
+import br.com.warren.challenge.app.portfolio.PortfolioActivity
 import br.com.warren.challenge.app.util.Resource
 import br.com.warren.challenge.databinding.ActivityLoginBinding
 import com.google.android.material.snackbar.Snackbar
@@ -42,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
             when (it) {
                 is Resource.Success -> {
                     setLoading(false)
-                    if(it.data) {
+                    if (it.data) {
                         redirectToHome()
                     } else {
                         showInvalidLoginError()
@@ -86,9 +87,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun redirectToHome() {
-        //startActivity(Intent(this, SplashActivity::class.java))
-        //finish()
-        Toast.makeText(this, "Login feito!", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, PortfolioActivity::class.java))
+        finish()
     }
 
     private fun setLoading(isLoading: Boolean) {
