@@ -41,8 +41,7 @@ class PortfolioActivity : AppCompatActivity() {
         }
 
         binding.imageViewLogout.setOnClickListener {
-            finish()
-            startActivity(Intent(this, LoginActivity::class.java))
+            viewModel.logout()
         }
 
     }
@@ -86,6 +85,10 @@ class PortfolioActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.onLogoutLiveData.observe(this, {
+            if (it is Resource.Success) redirectToLogin()
+        })
+
     }
 
     private fun updateList(portfolios: List<Portfolio>) {
@@ -113,6 +116,11 @@ class PortfolioActivity : AppCompatActivity() {
         binding.swipeRefreshLayout.isRefreshing = isLoading
         binding.textViewPortfolioDescription.visibility =
             if (isLoading) View.INVISIBLE else View.VISIBLE
+    }
+
+    private fun redirectToLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
 
