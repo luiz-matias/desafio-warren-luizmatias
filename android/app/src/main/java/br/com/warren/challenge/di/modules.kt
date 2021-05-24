@@ -2,6 +2,7 @@ package br.com.warren.challenge.di
 
 import br.com.warren.challenge.app.login.LoginViewModel
 import br.com.warren.challenge.app.portfolio.PortfolioViewModel
+import br.com.warren.challenge.app.splash.SplashViewModel
 import br.com.warren.challenge.data.AuthRepository
 import br.com.warren.challenge.data.AuthRepositoryImpl
 import br.com.warren.challenge.data.PortfolioRepository
@@ -33,7 +34,8 @@ val appModule = module {
 
     //ViewModels
     viewModel { LoginViewModel(Dispatchers.IO, get()) }
-    viewModel { PortfolioViewModel(Dispatchers.IO, get()) }
+    viewModel { PortfolioViewModel(Dispatchers.IO, get(), get()) }
+    viewModel { SplashViewModel(get()) }
 
 }
 

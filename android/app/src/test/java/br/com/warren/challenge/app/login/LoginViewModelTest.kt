@@ -48,8 +48,6 @@ class LoginViewModelTest {
     fun `when login called with happy path, then returns Success`() =
         testDispatcher.runBlockingTest {
             //given
-            authRepository = mockk()
-
             coEvery { authRepository.login("test@test.com", "123456") } returns true
 
             val loginViewModel = LoginViewModel(testDispatcher, authRepository)
@@ -68,8 +66,6 @@ class LoginViewModelTest {
     fun `when login called with wrong email, then returns Exception Error`() =
         testDispatcher.runBlockingTest {
             //given
-            authRepository = mockk()
-
             coEvery { authRepository.login("test@test.com", "123456") } returns true
 
             val loginViewModel = LoginViewModel(testDispatcher, authRepository)
@@ -91,8 +87,6 @@ class LoginViewModelTest {
     fun `when login called with wrong password, then returns Exception Error`() =
         testDispatcher.runBlockingTest {
             //given
-            authRepository = mockk()
-
             coEvery { authRepository.login("test@test.com", "123456") } returns true
 
             val loginViewModel = LoginViewModel(testDispatcher, authRepository)
@@ -114,8 +108,6 @@ class LoginViewModelTest {
     fun `when login called with invalid login into WS, then returns Exception Error`() =
         testDispatcher.runBlockingTest {
             //given
-            authRepository = mockk()
-
             coEvery { authRepository.login("test@test.com", "123456") } returns false
 
             val loginViewModel = LoginViewModel(testDispatcher, authRepository)
@@ -135,8 +127,6 @@ class LoginViewModelTest {
     fun `when login called and an unknown error occurs, rethrow exception into resource class`() =
         testDispatcher.runBlockingTest {
             //given
-            authRepository = mockk()
-
             coEvery {
                 authRepository.login(
                     "test@test.com",

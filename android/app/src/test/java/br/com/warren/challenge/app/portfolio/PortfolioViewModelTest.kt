@@ -7,6 +7,7 @@ import br.com.warren.challenge.app.util.Resource
 import br.com.warren.challenge.data.PortfolioRepository
 import br.com.warren.challenge.data.entities.Background
 import br.com.warren.challenge.data.entities.Portfolio
+import br.com.warren.challenge.data.local.SessionManager
 import br.com.warren.challenge.testutils.MainCoroutineRule
 import br.com.warren.challenge.testutils.getOrAwaitValue
 import br.com.warren.challenge.testutils.observeForTesting
@@ -14,7 +15,7 @@ import com.google.common.truth.Truth
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
+import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
@@ -41,6 +42,9 @@ class PortfolioViewModelTest {
     @MockK
     lateinit var portfolioRepository: PortfolioRepository
 
+    @RelaxedMockK
+    lateinit var sessionManager: SessionManager
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = false)
@@ -50,11 +54,10 @@ class PortfolioViewModelTest {
     fun `when getting portfolios, then returns a list of portfolios successfully`() =
         testDispatcher.runBlockingTest {
             //given
-            portfolioRepository = mockk()
-
             coEvery { portfolioRepository.getPortfolio() } returns ArrayList()
 
-            val portfolioViewModel = PortfolioViewModel(testDispatcher, portfolioRepository)
+            val portfolioViewModel =
+                PortfolioViewModel(testDispatcher, portfolioRepository, sessionManager)
 
             //when
             val liveData = portfolioViewModel.portfoliosLiveData
@@ -72,11 +75,10 @@ class PortfolioViewModelTest {
     fun `when getting portfolios and some exception occurs, then rethrow the exception trough livedata`() =
         testDispatcher.runBlockingTest {
             //given
-            portfolioRepository = mockk()
-
             coEvery { portfolioRepository.getPortfolio() } throws UnauthorizedException()
 
-            val portfolioViewModel = PortfolioViewModel(testDispatcher, portfolioRepository)
+            val portfolioViewModel =
+                PortfolioViewModel(testDispatcher, portfolioRepository, sessionManager)
 
             //when
             val liveData = portfolioViewModel.portfoliosLiveData
@@ -94,8 +96,6 @@ class PortfolioViewModelTest {
     fun `when getting portfolios, then returns the total accumulated successfully`() =
         testDispatcher.runBlockingTest {
             //given
-            portfolioRepository = mockk()
-
             coEvery { portfolioRepository.getPortfolio() } returns arrayListOf(
                 Portfolio(
                     "1",
@@ -115,7 +115,8 @@ class PortfolioViewModelTest {
                 )
             )
 
-            val portfolioViewModel = PortfolioViewModel(testDispatcher, portfolioRepository)
+            val portfolioViewModel =
+                PortfolioViewModel(testDispatcher, portfolioRepository, sessionManager)
 
             //when
             val liveData: MutableLiveData<Resource<BigDecimal>> =
@@ -134,11 +135,10 @@ class PortfolioViewModelTest {
     fun `when getting total accumulated and some exception occurs, then rethrow the exception trough livedata`() =
         testDispatcher.runBlockingTest {
             //given
-            portfolioRepository = mockk()
-
             coEvery { portfolioRepository.getPortfolio() } throws UnauthorizedException()
 
-            val portfolioViewModel = PortfolioViewModel(testDispatcher, portfolioRepository)
+            val portfolioViewModel =
+                PortfolioViewModel(testDispatcher, portfolioRepository, sessionManager)
 
             //when
             val liveData = portfolioViewModel.totalAccumulatedLiveData
@@ -148,6 +148,24 @@ class PortfolioViewModelTest {
             liveData.observeForTesting {
                 Truth.assertThat((liveData.getOrAwaitValue() as Resource.Error).exception.message)
                     .isEqualTo(Resource.Error(UnauthorizedException()).exception.message)
+            }
+
+        }
+
+    @Test
+    fun `when calling logout, then liveData triggers the logout action`() =
+        testDispatcher.runBlockingTest {
+            //given
+            val portfolioViewModel =
+                PortfolioViewModel(testDispatcher, portfolioRepository, sessionManager)
+
+            //when
+            val liveData = portfolioViewModel.onLogoutLiveData
+            portfolioViewModel.logout()
+
+            //then
+            liveData.observeForTesting {
+                Truth.assertThat(liveData.getOrAwaitValue()).isEqualTo(Resource.Success(Unit))
             }
 
         }
