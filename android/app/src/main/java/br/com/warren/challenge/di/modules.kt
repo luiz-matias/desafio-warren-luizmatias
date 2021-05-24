@@ -1,8 +1,11 @@
 package br.com.warren.challenge.di
 
 import br.com.warren.challenge.app.login.LoginViewModel
+import br.com.warren.challenge.app.portfolio.PortfolioViewModel
 import br.com.warren.challenge.data.AuthRepository
 import br.com.warren.challenge.data.AuthRepositoryImpl
+import br.com.warren.challenge.data.PortfolioRepository
+import br.com.warren.challenge.data.PortfolioRepositoryImpl
 import br.com.warren.challenge.data.local.SessionManager
 import br.com.warren.challenge.data.local.SessionManagerImpl
 import br.com.warren.challenge.data.webservice.AuthInterceptor
@@ -21,14 +24,16 @@ val appModule = module {
     factory { AuthInterceptor(get()) }
     factory { provideOkHttpClient(get()) }
     factory { provideWarrenApi(get()) }
-    single { provideRetrofit(get()) }
+    factory { provideRetrofit(get()) }
 
     //Repositories, Managers, Providers, etc.
     single<SessionManager> { SessionManagerImpl(get()) }
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
+    single<PortfolioRepository> { PortfolioRepositoryImpl(get()) }
 
     //ViewModels
     viewModel { LoginViewModel(Dispatchers.IO, get()) }
+    viewModel { PortfolioViewModel(Dispatchers.IO, get()) }
 
 }
 
@@ -39,8 +44,8 @@ fun provideWarrenApi(retrofit: Retrofit): WebService {
 
 fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
     return OkHttpClient().newBuilder()
-        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .addInterceptor(authInterceptor)
+        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
 }
 

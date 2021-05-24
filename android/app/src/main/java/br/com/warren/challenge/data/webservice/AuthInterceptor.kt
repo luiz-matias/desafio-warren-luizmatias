@@ -9,12 +9,15 @@ import okhttp3.Response
  */
 class AuthInterceptor(private val sessionManager: SessionManager) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        var req = chain.request()
+        val original = chain.request()
         val auth = sessionManager.getAuthSession()
         if (auth != null) {
-            val headers = req.headers.newBuilder().add("access_token", auth.accessToken).build()
-            req = req.newBuilder().headers(headers).build()
+            val request = original.newBuilder()
+                .header("access-token", auth.accessToken)
+                .method(original.method, original.body)
+                .build()
+            return chain.proceed(request)
         }
-        return chain.proceed(req)
+        return chain.proceed(original)
     }
 }
