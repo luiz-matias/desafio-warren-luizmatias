@@ -24,7 +24,7 @@ val appModule = module {
     factory { AuthInterceptor(get()) }
     factory { provideOkHttpClient(get()) }
     factory { provideWarrenApi(get()) }
-    single { provideRetrofit(get()) }
+    factory { provideRetrofit(get()) }
 
     //Repositories, Managers, Providers, etc.
     single<SessionManager> { SessionManagerImpl(get()) }
@@ -44,8 +44,8 @@ fun provideWarrenApi(retrofit: Retrofit): WebService {
 
 fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
     return OkHttpClient().newBuilder()
-        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .addInterceptor(authInterceptor)
+        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
 }
 
