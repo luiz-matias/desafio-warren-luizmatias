@@ -1,4 +1,4 @@
-package br.com.warren.challenge.app
+package br.com.warren.challenge.app.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
