@@ -11,4 +11,10 @@
     <string name="invalid_password">Senhas precisam ter 6 caracteres ou mais</string>
     <string name="unknown_error">Houve um problema. Tente novamente mais tarde.</string>
     <string name="invalid_login">Login não encontrado!</string>
+    <string name="my_portfolio">Meus objetivos</string>
+    <string name="logout">Logout da aplicação</string>
+    <string name="my_portfolio_description">Total acumulado: R$ %s</string>
+    <string name="name_sample">Salar de Uyuni</string>
+    <string name="balance_sample">Dinheiro acumulado: R$1.400,00</string>
+    <string name="goal_sample">Meta: R$13.000,00</string>
 </resources>
