@@ -5,7 +5,9 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+/**
+ * Converts an calendar instance into a String with the format "dd/mm/yyyy"
+ */
 fun Calendar.toHumanDate(): String {
     return String.format(
         Locale.getDefault(),
@@ -16,11 +18,17 @@ fun Calendar.toHumanDate(): String {
     )
 }
 
+/**
+ * Converts a String with the format "yyyy-mm-dd" into a date instance
+ */
 fun String.toDate(): Date {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     return dateFormat.parse(this)!!
 }
 
+/**
+ * Convert a big decimal instance value into a currency string with the BRL format. Example: "R$13,000.00"
+ */
 fun BigDecimal.toCurrencyString(): String {
     val format = NumberFormat.getCurrencyInstance(Locale.getDefault())
     format.maximumFractionDigits = 2
