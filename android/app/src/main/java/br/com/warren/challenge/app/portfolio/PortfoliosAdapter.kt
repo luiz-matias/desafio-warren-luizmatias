@@ -33,7 +33,7 @@ class PortfoliosAdapter(private val context: Context) :
         val portfolio = portfolios[position]
 
         Picasso.get()
-            .load(portfolio.background.regular)
+            .load(portfolio.background.small)
             .placeholder(R.drawable.ic_image_placeholder)
             .error(R.drawable.ic_image_error)
             .into(holder.imageViewBackground)

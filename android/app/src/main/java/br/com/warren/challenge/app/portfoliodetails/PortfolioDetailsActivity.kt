@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.warren.challenge.R
 import br.com.warren.challenge.data.entities.Portfolio
 import br.com.warren.challenge.databinding.ActivityPortfolioDetailsBinding
+import com.squareup.picasso.Picasso
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,6 +27,13 @@ class PortfolioDetailsActivity : AppCompatActivity() {
     }
 
     private fun setData(portfolio: Portfolio) {
+
+        Picasso.get()
+            .load(portfolio.background.regular)
+            .placeholder(R.drawable.ic_image_placeholder)
+            .error(R.drawable.ic_image_error)
+            .into(binding.imageViewBackground)
+
         binding.textViewTitle.text = portfolio.name
 
         val format = NumberFormat.getCurrencyInstance(Locale.getDefault())
