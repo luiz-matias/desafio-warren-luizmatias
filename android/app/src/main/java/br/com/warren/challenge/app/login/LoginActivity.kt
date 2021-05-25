@@ -70,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
     private fun showUnknownError(exception: Exception) {
         Snackbar.make(this, binding.root, getString(R.string.unknown_error), Snackbar.LENGTH_SHORT)
             .show()
+        exception.printStackTrace()
     }
 
     private fun setEmailInvalid(isInvalid: Boolean) {
