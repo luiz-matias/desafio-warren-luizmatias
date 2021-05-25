@@ -3,11 +3,11 @@ package br.com.warren.challenge.app.portfolio
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.warren.challenge.R
 import br.com.warren.challenge.app.login.LoginActivity
+import br.com.warren.challenge.app.portfoliodetails.PortfolioDetailsActivity
 import br.com.warren.challenge.app.util.Resource
 import br.com.warren.challenge.data.entities.Portfolio
 import br.com.warren.challenge.databinding.ActivityPortfolioBinding
@@ -52,8 +52,14 @@ class PortfolioActivity : AppCompatActivity() {
         binding.recyclerViewPortfolio.layoutManager = linearLayoutManager
 
         adapter.onClickListener = { item ->
-            Toast.makeText(this, "Click em ${item.name}!", Toast.LENGTH_SHORT).show()
+            openPortfolioDetails(item)
         }
+    }
+
+    private fun openPortfolioDetails(item: Portfolio) {
+        val intent = Intent(this, PortfolioDetailsActivity::class.java)
+        intent.putExtra("portfolio", item)
+        startActivity(intent)
     }
 
     private fun observeViewModel() {
