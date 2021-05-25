@@ -18,7 +18,17 @@
     <string name="balance_sample">Dinheiro acumulado: R$1.400,00</string>
     <string name="goal_sample">Meta: R$13.000,00</string>
     <string name="goal_not_defined">Meta não definida</string>
+    <string name="not_defined">-</string>
     <string name="balance">Dinheiro acumulado: %s</string>
     <string name="goal">Meta: %s</string>
     <string name="total_accumulated">Total: %s</string>
+    <string name="background_image_description">Imagem da meta</string>
+    <string name="balance_description">Você já guardou:</string>
+    <string name="money_sample">R$13.000,00</string>
+    <string name="goal_description">Sua meta é:</string>
+    <string name="goal_date_description">Data limite</string>
+    <string name="date_sample">01/01/2021</string>
+    <string name="current_date_description">Hoje</string>
+    <string name="days_remaining_sample">20 dias</string>
+    <string name="percentage_sample">75%</string>
 </resources>
