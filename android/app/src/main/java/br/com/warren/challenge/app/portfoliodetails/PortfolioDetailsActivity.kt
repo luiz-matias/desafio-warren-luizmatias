@@ -9,7 +9,6 @@ import br.com.warren.challenge.app.util.toHumanDate
 import br.com.warren.challenge.data.entities.Portfolio
 import br.com.warren.challenge.databinding.ActivityPortfolioDetailsBinding
 import com.squareup.picasso.Picasso
-import java.text.NumberFormat
 import java.util.*
 
 class PortfolioDetailsActivity : AppCompatActivity() {
@@ -42,7 +41,12 @@ class PortfolioDetailsActivity : AppCompatActivity() {
         if (portfolio.goalAmount != null) {
             binding.textViewGoal.text = portfolio.goalAmount.toCurrencyString()
             binding.progressBarGoalPercentage.progressMax = portfolio.goalAmount.toFloat()
-            binding.progressBarGoalPercentage.setProgressWithAnimation(portfolio.totalBalance.toFloat(), 1000, null, 300)
+            binding.progressBarGoalPercentage.setProgressWithAnimation(
+                portfolio.totalBalance.toFloat(),
+                1000,
+                null,
+                300
+            )
             binding.textViewPercentage.text = String.format(
                 Locale.getDefault(),
                 "%.2f%%",
