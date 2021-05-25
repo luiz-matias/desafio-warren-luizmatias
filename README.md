@@ -7,79 +7,37 @@ Você terá o prazo de 1 semana para a entrega, que deve ser realizada por etapa
 Usar esse repositório como um template para a criação de um repositório *privado* no GitHub e adicionar `@robuske` e `@bocato` (para iOS) ou `@pablobaldez` (para Android) como colaborador. 
 `https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template`
 
-Após a criação, resolver as tarefas e criar PRs para cada uma descrevendo o que foi feito para review.
+# Anotações do Desenvolvedor
 
-### Feature de Login
-* Buscar token de acesso na rota de login:
-* Exigir login apenas uma vez.     
-  ```
-  Infos:
-  
-  POST https://enigmatic-bayou-48219.herokuapp.com/api/v2/account/login
-  BODY -> RAW -> JSON: 
-  Content-Type: application/json
-  
-  {
-      "email": "mobile_test@warrenbrasil.com",
-      "password": "Warren123!"
-  }
-  ```
+Olá! Neste projeto, foi implementado todas as solicitações do teste (Login, Lista de Objetivos e Detalhes Do Objetivo), onde as principais tecnologias utilizadas foram:
 
-### Feature de Lista de Objetivos
-* Exibir uma lista ou collection com os objetivos do usuário: 
-  ```
-  Infos:
+* **Kotlin**: O app foi feito completamente em Kotlin.
+* **Retrofit**: Foi utilizado o Retrofit para gerenciamentos e parseamento de requests.
+* **Architecture Components**: Foi utilizado o LiveData junto do ViewModel para a camada de apresentação.
+* **Coroutines**: Todo o gerenciamento de estados e tarefas assíncronas foram feitos utilizando Kotlin Coroutines.
+* **Injeção de Dependências**: Foi utilizado o Koin como ferramenta de injeção de dependência.
+* **Testes**: Foram implementados testes unitários nas principais classes da aplicação, utilizando JUnit4, Google Truth, CoroutinesTest e Mockk.
 
-  GET https://enigmatic-bayou-48219.herokuapp.com/api/v2/portfolios/mine
-  HEADER: access-token: "token obtido no login"
-  Content-Type: application/json
-  ```
+## Sobre os Pull Requests
+Eu segui a metodologia apresentada no GitFlow como gerenciamento do versionamento do Git, e iria abrir os pull requests assim que fosse terminando as funcionalidades.
 
-### Feature Detalhes de Objetivo:
-* Exibir as informações do objetivo selecionado
+Porém, até o momento o `@pablobaldez` não aceitou o pedido para colaborar no projeto, assim não tendo ninguém para interagir no fluxo de aprovação de funcionalidades.
 
-## Tecnologias
-Recomendamos algumas tecnologias que usamos aqui na Warren (assim você ja vai estar por dentro do nosso estilo!). Se você optar por alguma diferente das recomendadas justifique no PR o motivo.
+Para que eu não ficasse parado aguardando a aceitação do convite e aprovação dos pull requests, segui o fluxo normal do GitFlow, mas nos momentos de pull request, eu simplesmente realizei o merge na branch develop. Abaixo vocês podem ver de maneira visual como foi o gerenciamento das branchs:
 
-### iOS
-* Swift
-* SwiftUI e Combine
-* SPM Modules
-* Moya/Alamofire
-* View Code (Sem storyboard / XIB)
-* Paw/Postman/Charles para testar API
-* Coordinators
-* Swift Composable Architecture (https://github.com/pointfreeco/swift-composable-architecture) ou MVVM.
+![git](https://user-images.githubusercontent.com/29527763/119518636-135f2280-bd4f-11eb-971a-10f69dacc6dc.png)
 
-### Android
-* Kotlin
-* Retrofit
-* Architecture Components
-* Coroutines
-* Injeção de dependências
+## Arquitetura
+A arquitetura foi inspirada no que a documentação do Android sugere: Uma **camada de visualização (activities, fragments, etc.)** se comunicando com a **camada de apresentação (ViewModels)** que interage com **Repositórios** que por fim, manipulam outras classes que interagem com o ecossistema Android **(Room, Retrofit, etc.)**.
 
-## O que será avaliado:
+De forma genérica, a arquitetura do aplicativo pode ser definida como no diagrama abaixo:
 
-### Principal
-* Atenção com UI/UX (Isso é muuuito importante pra gente! Nossos apps são recomendados como inspiração);
-* Colaboração através do GitHub. Abrindo Pull Requests para features isoladas no aplicativo, respondendo e resolvendo comentários e sugestões.
-* Seguir guidelines e padrões do sistema iOS/Android/Web;
-* Estrutura e solução dos problemas;
-* Lógica, modularização, organização, clareza de código, escalabilidade e documentação;
-* Testes unitários de parte do projeto.
+![arq](https://user-images.githubusercontent.com/29527763/119516902-85cf0300-bd4d-11eb-9b8e-8243f4a08344.png)
 
-### Interessante: (não fundamental)
-* Layout customizado avançado. (Inspiração no nosso app é bem-vinda);
-* Arquitetura da solução;
-* Transições e animações customizadas;
+## Demo
+Abaixo vocês podem ver uma preview de como o aplicativo ficou, antes de precisar compilá-lo.
 
-## Links úteis:
+https://user-images.githubusercontent.com/29527763/119517574-1c9bbf80-bd4e-11eb-864e-307dcec1e916.mp4
 
-Warren no Android:
-https://play.google.com/store/apps/details?id=com.oiwarren.oiwarren
 
-Warren no iOS:
-https://itunes.apple.com/br/app/id1114394063
 
-Warren na Web:
-https://warrenbrasil.com.br
