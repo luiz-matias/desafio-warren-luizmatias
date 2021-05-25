@@ -3,11 +3,13 @@ package br.com.warren.challenge.app.portfoliodetails
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.warren.challenge.R
+import br.com.warren.challenge.app.util.toCurrencyString
+import br.com.warren.challenge.app.util.toDate
+import br.com.warren.challenge.app.util.toHumanDate
 import br.com.warren.challenge.data.entities.Portfolio
 import br.com.warren.challenge.databinding.ActivityPortfolioDetailsBinding
 import com.squareup.picasso.Picasso
 import java.text.NumberFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 class PortfolioDetailsActivity : AppCompatActivity() {
@@ -35,23 +37,12 @@ class PortfolioDetailsActivity : AppCompatActivity() {
             .into(binding.imageViewBackground)
 
         binding.textViewTitle.text = portfolio.name
-
-        val format = NumberFormat.getCurrencyInstance(Locale.getDefault())
-        format.maximumFractionDigits = 2
-        format.currency = Currency.getInstance("BRL")
-
-        binding.textViewBalance.text = format.format(portfolio.totalBalance)
+        binding.textViewBalance.text = portfolio.totalBalance.toCurrencyString()
 
         if (portfolio.goalAmount != null) {
-            binding.textViewGoal.text = format.format(portfolio.goalAmount)
+            binding.textViewGoal.text = portfolio.goalAmount.toCurrencyString()
             binding.progressBarGoalPercentage.progressMax = portfolio.goalAmount.toFloat()
-            //binding.progressBarGoalPercentage.progress = portfolio.totalBalance.toFloat()
-            binding.progressBarGoalPercentage.setProgressWithAnimation(
-                portfolio.totalBalance.toFloat(),
-                1000,
-                null,
-                300
-            )
+            binding.progressBarGoalPercentage.setProgressWithAnimation(portfolio.totalBalance.toFloat(), 1000, null, 300)
             binding.textViewPercentage.text = String.format(
                 Locale.getDefault(),
                 "%.2f%%",
@@ -66,26 +57,9 @@ class PortfolioDetailsActivity : AppCompatActivity() {
 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-
-        binding.textViewCurrentDate.text = String.format(
-            Locale.getDefault(),
-            "%02d/%02d/%04d",
-            calendar.get(Calendar.DAY_OF_MONTH),
-            calendar.get(Calendar.MONTH) + 1,
-            calendar.get(Calendar.YEAR)
-        )
-
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val date = dateFormat.parse(portfolio.goalDate)!!
-        calendar.time = date
-
-        binding.textViewGoalDate.text = String.format(
-            Locale.getDefault(),
-            "%02d/%02d/%04d",
-            calendar.get(Calendar.DAY_OF_MONTH),
-            calendar.get(Calendar.MONTH) + 1,
-            calendar.get(Calendar.YEAR)
-        )
+        binding.textViewCurrentDate.text = calendar.toHumanDate()
+        calendar.time = portfolio.goalDate.toDate()
+        binding.textViewGoalDate.text = calendar.toHumanDate()
 
     }
 }

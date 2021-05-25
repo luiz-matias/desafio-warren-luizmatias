@@ -11,9 +11,9 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.warren.challenge.R
+import br.com.warren.challenge.app.util.toCurrencyString
 import br.com.warren.challenge.data.entities.Portfolio
 import com.squareup.picasso.Picasso
-import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
@@ -38,22 +38,18 @@ class PortfoliosAdapter(private val context: Context) :
             .error(R.drawable.ic_image_error)
             .into(holder.imageViewBackground)
 
-        val format = NumberFormat.getCurrencyInstance(Locale.getDefault())
-        format.maximumFractionDigits = 2
-        format.currency = Currency.getInstance("BRL")
-
         holder.textViewTitle.text = portfolio.name
         holder.textViewBalance.text = String.format(
             Locale.getDefault(),
             context.getString(R.string.balance),
-            format.format(portfolio.totalBalance)
+            portfolio.totalBalance.toCurrencyString()
         )
 
         if (portfolio.goalAmount != null) {
             holder.textViewGoal.text = String.format(
                 Locale.getDefault(),
                 context.getString(R.string.goal),
-                format.format(portfolio.goalAmount)
+                portfolio.goalAmount.toCurrencyString()
             )
 
             holder.progressBarGoalPercentage.visibility = View.VISIBLE
