@@ -9,12 +9,12 @@ import br.com.warren.challenge.R
 import br.com.warren.challenge.app.login.LoginActivity
 import br.com.warren.challenge.app.portfoliodetails.PortfolioDetailsActivity
 import br.com.warren.challenge.app.util.Resource
+import br.com.warren.challenge.app.util.toCurrencyString
 import br.com.warren.challenge.data.entities.Portfolio
 import br.com.warren.challenge.databinding.ActivityPortfolioBinding
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.BigDecimal
-import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -102,14 +102,10 @@ class PortfolioActivity : AppCompatActivity() {
     }
 
     private fun updateTotalAccumulated(totalValue: BigDecimal) {
-        val format = NumberFormat.getCurrencyInstance(Locale.getDefault())
-        format.maximumFractionDigits = 2
-        format.currency = Currency.getInstance("BRL")
-
         binding.textViewPortfolioDescription.text = String.format(
             Locale.getDefault(),
             getString(R.string.total_accumulated),
-            format.format(totalValue)
+            totalValue.toCurrencyString()
         )
     }
 

@@ -62,11 +62,11 @@
         android:layout_height="0dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="16dp"
-        app:layout_constraintHeight_percent="0.36"
-        app:layout_constraintWidth_percent="0.9"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.36"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewBackground">
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBackground"
+        app:layout_constraintWidth_percent="0.9">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -105,10 +105,10 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:hint="@string/password"
-                app:passwordToggleEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail">
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textInputEditTextPassword"
@@ -133,15 +133,14 @@
 
             <ProgressBar
                 android:id="@+id/progressBarLoading"
-                android:visibility="invisible"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:indeterminateTint="@color/pink_500"
-                app:layout_constraintTop_toTopOf="@+id/buttonLogin"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/buttonLogin"
-                app:layout_constraintStart_toStartOf="@+id/buttonLogin"
                 app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
-                />
+                app:layout_constraintStart_toStartOf="@+id/buttonLogin"
+                app:layout_constraintTop_toTopOf="@+id/buttonLogin" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
